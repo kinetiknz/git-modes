@@ -120,6 +120,7 @@ Because you have seen them before and can still remember."
     (define-key map (kbd "s")   'git-rebase-squash)
     (define-key map (kbd "f")   'git-rebase-fixup)
     (define-key map (kbd "y")   'git-rebase-insert)
+    (define-key map (kbd "o")   'git-rebase-noop)
     (define-key map (kbd "k")   'git-rebase-kill-line)
     (define-key map (kbd "C-k") 'git-rebase-kill-line)
     (define-key map (kbd "p")   'git-rebase-backward-line)
@@ -269,6 +270,13 @@ connection."
         (let ((inhibit-read-only t))
           (insert "pick " summary ?\n))
       (user-error "Unknown revision"))))
+
+(defun git-rebase-noop ()
+  "Insert a noop command below current line."
+  (interactive)
+  (forward-line)
+  (let ((inhibit-read-only t))
+    (insert "noop" ?\n)))
 
 (defun git-rebase-exec (edit)
   "Prompt the user for a shell command to be executed, and
